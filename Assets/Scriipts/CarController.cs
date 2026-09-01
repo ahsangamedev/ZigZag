@@ -22,6 +22,11 @@ public class CarController : MonoBehaviour
             Move();
             checkInput();
         }
+
+        if(transform.position.y <= -2) // if car falls
+        {
+            GameManager.instance.GameOver();
+        }
         
     }
 

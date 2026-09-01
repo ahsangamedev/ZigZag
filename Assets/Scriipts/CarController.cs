@@ -6,7 +6,8 @@ public class CarController : MonoBehaviour
 {
 
     public float moveSpeed;
-
+    bool movingLeft = true;
+    bool firstInput = true;
     // Start is called before the first frame update
     void Start()
     {
@@ -16,7 +17,12 @@ public class CarController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Move();
+        if (GameManager.instance.gameStarted)
+        {
+            Move();
+            checkInput();
+        }
+        
     }
 
 
@@ -27,6 +33,37 @@ public class CarController : MonoBehaviour
         transform.position += transform.forward * moveSpeed * Time.deltaTime; // the pos z axis
     }
 
+
+    void checkInput()
+    {
+        // if first input then ignore
+
+        if (firstInput)
+        {
+            firstInput = false;
+            return;
+        }
+
+        if (Input.GetMouseButtonDown(0))
+        {
+            changeDirection();
+        }
+    }   
+
+
+    void changeDirection()
+    {
+        if (movingLeft)
+        {
+            movingLeft = false;
+            transform.rotation = Quaternion.Euler(0, 90, 0);
+        }
+        else
+        {
+            movingLeft = true;
+            transform.rotation = Quaternion.Euler(0, 0 ,0);
+        }
+    }
 
 
 }

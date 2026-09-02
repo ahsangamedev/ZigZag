@@ -8,6 +8,10 @@ public class CarController : MonoBehaviour
     public float moveSpeed;
     bool movingLeft = true;
     bool firstInput = true;
+
+
+    public GameObject pickUpEffect;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -69,6 +73,22 @@ public class CarController : MonoBehaviour
             transform.rotation = Quaternion.Euler(0, 0 ,0);
         }
     }
+
+
+    void OnTriggerEnter(Collider other)
+    {
+        if(other.gameObject.tag == "Diamond")
+        {
+            GameManager.instance.IncermentScore();
+
+            Instantiate(pickUpEffect, other.transform.position, pickUpEffect.transform.rotation);
+
+            other.gameObject.SetActive(false);
+
+        }
+    }
+
+
 
 
 }

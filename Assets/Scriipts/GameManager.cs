@@ -19,6 +19,15 @@ public class GameManager : MonoBehaviour
     public Text scoreText;
     public Text highScoreText;
 
+
+
+
+
+    AudioSource audioSource; // storing the audio source
+    public AudioClip[] gameMusic;
+
+
+
     public GameObject gamePlayUI;
 
     int score = 0;
@@ -31,7 +40,9 @@ public class GameManager : MonoBehaviour
         if(instance == null)
         {
             instance = this;
-        }    
+        }
+
+        audioSource = GetComponent<AudioSource>();    
     }
 
 
@@ -62,6 +73,9 @@ public class GameManager : MonoBehaviour
         platformSpawner.SetActive(true);
         menuUi.SetActive(false);
         gamePlayUI.SetActive(true);
+        //play audio
+        audioSource.clip = gameMusic[1];
+        audioSource.Play();
 
         StartCoroutine("UpdateScore");
     }
@@ -72,6 +86,8 @@ public class GameManager : MonoBehaviour
         platformSpawner.SetActive(false);
         StopCoroutine("UpdateScore");
         SavedHighScore();
+
+        
 
         Invoke("ReloadLevel", 1f);
     }
@@ -99,6 +115,15 @@ public class GameManager : MonoBehaviour
 
             // print(score);
         }
+    }
+
+
+
+    public void IncermentScore()
+    {
+        score += 2;     //score = score + 2;
+
+        audioSource.PlayOneShot(gameMusic[2], 0.2f);
     }
 
 

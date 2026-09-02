@@ -4,10 +4,29 @@ using UnityEngine;
 
 public class Platform : MonoBehaviour
 {
+    public GameObject diamond;
+
+
     // Start is called before the first frame update
     void Start()
     {
         
+        int randDiamond = Random.Range(0, 5); // bw 0 and 4
+
+        Vector3 diamondPos = transform.position;
+        diamondPos.y += 1f;
+
+        if (randDiamond < 1)
+        {
+            // spawn the diamond
+            GameObject diamondInstance = Instantiate(diamond, diamondPos, diamond.transform.rotation);
+            diamondInstance.transform.SetParent(gameObject.transform);
+            
+        }
+
+        // 1 2 3 4 we dont want to spawn the diamond
+
+
     }
 
     // Update is called once per frame
